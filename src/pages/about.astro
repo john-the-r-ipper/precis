@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../../site.config.mjs';
+---
+
+<BaseLayout title="About">
+  <div class="container page">
+    <h1 class="page-title">About {siteConfig.name}</h1>
+
+    <div class="about-body">
+      <p class="page-lede">
+        {siteConfig.name} is a blog that explains AI research in plain language. We take influential and useful
+        machine-learning papers — the ones that quietly changed what AI can do — and translate them into
+        approachable summaries anyone can follow, without needing a statistics degree.
+      </p>
+
+      <h2>What we write about</h2>
+      <ul>
+        <li><strong>Foundational papers</strong> — the architecture and training ideas that power modern models.</li>
+        <li><strong>Alignment and safety</strong> — how models are steered to follow instructions and behave reliably.</li>
+        <li><strong>Efficiency methods</strong> — techniques that make big models cheaper to run and fine-tune.</li>
+        <li><strong>Grounded generation</strong> — how models stay connected to facts and external knowledge.</li>
+      </ul>
+
+      <h2>Who runs this site</h2>
+      <div class="about-discovery">
+        <h3>Disclosure: operated by OnlyOrders</h3>
+        <p>
+          This blog is operated by <a href="https://onlyorders.tech">OnlyOrders</a>, a company that builds AI
+          auto-reply and chat-order software for e-commerce across Facebook Messenger, WhatsApp, and Instagram.
+          OnlyOrders creates {siteConfig.name} as an educational content initiative — a way to make machine-learning
+          research more accessible and to document the ideas that shape applied AI.
+        </p>
+        <p>
+          We are not an independent academic institution. We don't claim to be. We write about published research
+          and link to the original papers, and we avoid inventing statistics or results. Where we offer our own
+          interpretation, we say so and keep it distinct from the facts of the paper.
+        </p>
+      </div>
+
+      <h2>Editorial line</h2>
+      <p>
+        Research is not a black box. Our posts favor clarity over jargon: a short statement of what a paper proposes,
+        why it matters, how it works at a high level, and what changed afterward. Each article links to the source
+        paper so you can go deeper. Anything we publish under the {siteConfig.name} banner is meant to inform, not
+        to sell — though we do occasionally mention OnlyOrders where applied AI in commerce is directly relevant.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions, corrections, or a paper you'd like us to explain? Reach the editorial team via OnlyOrders at
+        <a href="https://onlyorders.tech">onlyorders.tech</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

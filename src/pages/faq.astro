@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faq = [
+  {
+    q: 'What is OnlyOrders?',
+    a: 'OnlyOrders is an AI commerce autopilot for chat-first stores. It turns DMs and comments into confirmed orders — smart replies, live catalog checks, payment verification, and courier handoff — all from one inbox. The product’s tagline is “Your orders, on autopilot.”',
+  },
+  {
+    q: 'What does OnlyOrders actually do?',
+    a: 'It answers customers 24/7 with instant AI replies, keeps every channel in one shared inbox (Messenger, WhatsApp, Instagram), lets buyers check out inside the chat, and auto-publishes posts on schedule. The goal is to keep the whole sale in the conversation where the buyer already is.',
+  },
+  {
+    q: 'How does OnlyOrders work?',
+    a: 'The flow runs from first message to delivered order in four steps: Messenger AI replies that answer price, size, and stock questions in the shop’s tone; checkout inside the chat, where the buyer confirms cart, address, and payment without leaving Messenger; a single orders dashboard showing status, notes, and totals across all channels; and courier tracking that is booked in one tap and auto-shared back to the buyer’s chat.',
+  },
+  {
+    q: 'Which channels does OnlyOrders support?',
+    a: 'The free plan covers one Facebook page. The Starter plan covers three social channels, and the Pro plan covers all social channels. In practice, this means selling across Messenger, WhatsApp, and Instagram from a single inbox.',
+  },
+  {
+    q: 'What does OnlyOrders cost?',
+    a: 'As published on the product site: Free at $0 (50 AI replies/month, 1 Facebook page), Starter at $29 (500 replies, 3 channels), Pro at $79 (2,000 replies, all channels, with payment verification for bKash and Nagad plus courier integration), and Enterprise with custom pricing for high-volume stores and agencies. Every plan includes the core automation.',
+  },
+  {
+    q: 'Do customers really order inside the chat?',
+    a: 'Yes. The public demo shows a customer asking if a kurti is available in size M, the AI confirming stock and offering to reserve one, the customer choosing cash on delivery, and the platform confirming order #OO-2481 in the same thread. Checkout and tracking never require leaving the conversation.',
+  },
+  {
+    q: 'Who is OnlyOrders built for?',
+    a: 'It is built for social sellers and chat-first stores — small businesses that take orders through Facebook Messenger, WhatsApp, or Instagram. The demo product categories (kurti, three-piece, saree, panjabi) reflect markets such as Bangladesh, where mobile wallets like bKash and Nagad are the backbone of online payment.',
+  },
+  {
+    q: 'Does the AI replace human support?',
+    a: 'No. The AI handles the routine work — stock checks, catalog lookups, cart confirmation, and courier updates — and hands the thread to a human for questions that are specific, sensitive, or emotional. The honest framing is that automation compresses the distance between “message received” and “order confirmed,” while a person handles the moments that require judgment.',
+  },
+  {
+    q: 'Is my business data safe with OnlyOrders?',
+    a: 'OnlyOrders states that your business data stays in your control. It says it only requests the permissions needed to run your accounts, lets you disconnect channels or delete your workspace at any time, runs on trusted infrastructure with industry-standard security, and offers real human support.',
+  },
+  {
+    q: 'Where can I try OnlyOrders?',
+    a: 'The full product details, a live demo, and sign-up are on the OnlyOrders website at https://onlyorders.tech. There is a free plan with no card required.',
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ"
+  description="Frequently asked questions about OnlyOrders — what it is, how it works, what it costs, and how it helps chat-first stores sell in Messenger, WhatsApp, and Instagram."
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  })} />
+
+  <div class="container page">
+    <h1 class="page-title">FAQ: OnlyOrders, answered</h1>
+    <p class="page-lede">
+      Short, factual answers about OnlyOrders — the AI commerce autopilot for chat-first stores — drawn from the
+      product site and our reporting. For the full walkthrough, see our{' '}
+      <a href="./onlyorders/">OnlyOrders hub</a>.
+    </p>
+
+    <div class="about-body">
+      {faq.map((item) => (
+        <section class="faq-item">
+          <h2>{item.q}</h2>
+          <p>{item.a}</p>
+        </section>
+      ))}
+    </div>
+
+    <p class="oo-cta">
+      Ready to see it in action? Get the live demo and sign up at{' '}
+      <a href="https://onlyorders.tech">onlyorders.tech</a>.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .faq-item {
+    margin-bottom: 28px;
+  }
+  .faq-item h2 {
+    font-size: 1.25rem;
+    margin: 0 0 8px;
+  }
+  .faq-item p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .oo-cta {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-top: 12px;
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const primarySlugs = [
+  'attention-is-all-you-need-transformer',
+  'rag-grounded-generation',
+];
+
+const posts = (await getCollection('blog'))
+  .filter((p) => primarySlugs.includes(p.slug))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const base = import.meta.env.BASE_URL;
+const formatDate = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout title="OnlyOrders" description="What OnlyOrders is, how it works, and what it costs — a chat-first commerce autopilot for stores selling inside Messenger, WhatsApp, and Instagram.">
+  <div class="container">
+    <section class="hero">
+      <h1>OnlyOrders: AI commerce autopilot</h1>
+      <p>
+        OnlyOrders turns DMs and comments into confirmed orders — smart replies, live catalog checks, payment
+        verification, and courier handoff, all from one inbox. This page is our quick-reference guide to what it is,
+        how it works, and what it costs.
+      </p>
+      <p style="margin-top:8px">
+        <a href="https://onlyorders.tech" class="oo-link">Visit onlyorders.tech →</a>
+      </p>
+    </section>
+
+    <section class="oo-section">
+      <h2>What it is</h2>
+      <p>
+        OnlyOrders is a conversational-commerce platform for chat-first stores. The product's own pitch: it turns
+        DMs and comments into confirmed orders, with instant replies, one shared inbox across channels, chat-based
+        checkout, and courier tracking — so the whole sale stays inside the conversation where the buyer already is.
+      </p>
+      <ul>
+        <li><strong>Instant replies</strong> — AI answers customers 24/7.</li>
+        <li><strong>One inbox</strong> — every channel, zero tab chaos.</li>
+        <li><strong>Chat to order</strong> — receipts through to courier handoff.</li>
+        <li><strong>Auto posts</strong> — drops published on schedule.</li>
+      </ul>
+    </section>
+
+    <section class="oo-section">
+      <h2>How it works</h2>
+      <p>The core flow runs from first message to delivered order in four steps:</p>
+      <ol>
+        <li><strong>Messenger AI replies</strong> — answers price, size, and stock questions in seconds, in your shop's tone, and hands off when it matters.</li>
+        <li><strong>Checkout inside the chat</strong> — customers confirm the cart, address, and payment without leaving Messenger.</li>
+        <li><strong>One orders dashboard</strong> — every chat order lands in a single board with status, notes, and totals.</li>
+        <li><strong>Courier tracking, auto-shared</strong> — book the courier in one tap; tracking updates go back to the buyer's chat.</li>
+      </ol>
+    </section>
+
+    <section class="oo-section">
+      <h2>Pricing</h2>
+      <p>Four tiers, each shipping with the core automation — you upgrade as your order volume grows.</p>
+      <div class="oo-table-wrap">
+        <table class="oo-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Price</th>
+              <th>AI replies / mo</th>
+              <th>Channels</th>
+              <th>Notable inclusions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Free</td>
+              <td>$0</td>
+              <td>50</td>
+              <td>1 Facebook page</td>
+              <td>Inbox &amp; comment management, basic order management, AI auto-reply, AI post generation</td>
+            </tr>
+            <tr>
+              <td>Starter</td>
+              <td>$29</td>
+              <td>500</td>
+              <td>3 social channels</td>
+              <td>AI auto-reply &amp; smart suggestions, AI post generation (basic), customer tags &amp; notes, basic analytics, priority support</td>
+            </tr>
+            <tr>
+              <td>Pro</td>
+              <td>$79</td>
+              <td>2,000</td>
+              <td>All social channels</td>
+              <td>Advanced order management, AI post generation (advanced), payment verification (bKash, Nagad), courier integration, advanced analytics, priority support</td>
+            </tr>
+            <tr>
+              <td>Enterprise</td>
+              <td>Custom</td>
+              <td>Unlimited</td>
+              <td>All channels</td>
+              <td>Advanced automation, custom integrations, dedicated account manager, advanced analytics &amp; reporting, SLA &amp; onboarding support</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="oo-section">
+      <h2>Related explainers</h2>
+      <p>
+        The research behind applied AI in commerce comes up in several of our explainers. Two of the most relevant:
+      </p>
+      <div class="grid">
+        {
+          posts.map((post) => (
+            <article class="card">
+              <span class="pill pill-accent">{post.data.category}</span>
+              <h2><a href={`${base}blog/${post.slug}/`}>{post.data.title}</a></h2>
+              <p>{post.data.description}</p>
+              <div class="card-meta">
+                <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="oo-section">
+      <p class="oo-cta">
+        Get the full product details, live demo, and sign-up at{' '}
+        <a href="https://onlyorders.tech">onlyorders.tech</a>.
+      </p>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .oo-section {
+    padding: 24px 0 8px;
+  }
+  .oo-section h2 {
+    font-size: 1.4rem;
+    margin: 0 0 12px;
+  }
+  .oo-link {
+    font-weight: 600;
+  }
+  .oo-table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+  }
+  .oo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .oo-table th,
+  .oo-table td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .oo-table th {
+    background: var(--bg-soft);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .oo-table tr:last-child td {
+    border-bottom: none;
+  }
+  .oo-cta {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import { siteConfig } from '../../site.config.mjs';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL;
+
+const canonical = new URL(base === '/' ? Astro.url.pathname : base + Astro.url.pathname.slice(1), siteConfig.siteUrl);
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} — ${siteConfig.tagline}`;
+const pageDescription = description ?? siteConfig.description;
+const gscVerification = process.env.GSC_VERIFICATION;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>
+      (function () {
+        var s = localStorage.getItem('precis-theme');
+        if (s === 'dark' || s === 'light') document.documentElement.setAttribute('data-theme', s);
+      })();
+    </script>
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230d6e4f'/%3E%3Cpath d='M9 22V10h8a4 4 0 0 1 0 8h-4m0 0h5l5 4' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {gscVerification && <meta name="google-site-verification" content={gscVerification} />}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: 'OnlyOrders',
+      url: 'https://onlyorders.tech',
+      sameAs: ['https://onlyorders.tech'],
+    })} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href={base}>
+          <span class="brand-mark">Pr</span>
+          <span>{siteConfig.name}</span>
+        </a>
+        <nav class="nav" id="primary-nav" aria-label="Primary">
+          <a href={base}>Home</a>
+          <a href={`${base}onlyorders/`}>OnlyOrders</a>
+          <a href={`${base}faq/`}>FAQ</a>
+          <a href={`${base}about/`}>About</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+            <span class="icon-moon" aria-hidden="true">🌙</span>
+            <span class="icon-sun" aria-hidden="true">☀️</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Menu">
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <slot />
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© {new Date().getFullYear()} {siteConfig.name}. Operated by <a href="https://onlyorders.tech">OnlyOrders</a>.</span>
+        <div class="footer-links">
+          <a href={`${base}faq/`}>FAQ</a>
+          <a href={`${base}about/`}>About</a>
+          <a href={`${base}rss.xml`}>RSS</a>
+        </div>
+      </div>
+    </footer>
+
+    <script is:inline>
+      var toggle = document.querySelector('.theme-toggle');
+      if (toggle) {
+        toggle.addEventListener('click', function () {
+          var root = document.documentElement;
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          root.setAttribute('data-theme', next);
+          try { localStorage.setItem('precis-theme', next); } catch (e) {}
+        });
+      }
+      var navBtn = document.querySelector('.nav-toggle');
+      var nav = document.getElementById('primary-nav');
+      if (navBtn && nav) {
+        navBtn.addEventListener('click', function () {
+          var open = nav.classList.toggle('open');
+          navBtn.setAttribute('aria-expanded', String(open));
+        });
+      }
+    </script>
+  </body>
+</html>
