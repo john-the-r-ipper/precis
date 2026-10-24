@@ -4,7 +4,7 @@ import '../styles/global.css';
 
 const base = import.meta.env.BASE_URL;
 
-const canonical = new URL(base === '/' ? Astro.url.pathname : base + Astro.url.pathname.slice(1), siteConfig.siteUrl);
+const canonical = new URL(Astro.url.pathname, siteConfig.siteUrl);
 
 interface Props {
   title?: string;
