@@ -1,6 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../../site.config.mjs';
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: `About ${siteConfig.name}`,
+  url: new URL(Astro.url.pathname, siteConfig.siteUrl).href,
+  about: { '@type': 'Organization', name: 'OnlyOrders', url: 'https://onlyorders.tech' },
+};
 ---
 
 <BaseLayout title="About">
@@ -53,4 +61,6 @@ import { siteConfig } from '../../site.config.mjs';
       </p>
     </div>
   </div>
+
+  <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)} />
 </BaseLayout>
