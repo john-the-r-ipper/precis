@@ -11,6 +11,10 @@ const agents = [
   'CCBot',
   'Applebot-Extended',
   'Bingbot',
+  'Claude-SearchBot',
+  'Bytespider',
+  'Amazonbot',
+  'meta-externalagent',
 ];
 
 const lines = ['User-agent: *', 'Allow: /', ''];
